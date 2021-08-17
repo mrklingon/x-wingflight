@@ -42,6 +42,7 @@ controller.down.onEvent(ControllerButtonEvent.Repeated, function () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
     info.changeLifeBy(-1)
+    info.changeScoreBy(1)
     music.knock.play()
     scene.cameraShake(4, 500)
 })
@@ -66,7 +67,6 @@ assets.image`grnd4`
 ]
 speed = 10
 scene.setBackgroundImage(assets.image`sky`)
-effects.clouds.startScreenEffect()
 game.splash("Defend the Republic! Tie Fighters approaching!!")
 xwing = sprites.create(assets.image`x-wing`, SpriteKind.Player)
 xwing.setPosition(24, 65)
