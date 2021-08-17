@@ -15,14 +15,14 @@ sprites.onOverlap(SpriteKind.RebLaser, SpriteKind.Enemy, function (sprite, other
     info.changeScoreBy(5)
 })
 controller.up.onEvent(ControllerButtonEvent.Repeated, function () {
-    xwing.y += -1
+    xwing.y += -5
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     music.pewPew.play()
     lbolt = sprites.create(assets.image`laser`, SpriteKind.RebLaser)
     lbolt.setPosition(xwing.x, xwing.y)
     lbolt.setVelocity(150, 0)
-    lbolt.setFlag(SpriteFlag.AutoDestroy, true)
+    lbolt.setFlag(SpriteFlag.DestroyOnWall, true)
 })
 controller.right.onEvent(ControllerButtonEvent.Repeated, function () {
     speed += 5
@@ -37,7 +37,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     scene.cameraShake(4, 500)
 })
 controller.down.onEvent(ControllerButtonEvent.Repeated, function () {
-    xwing.y += 1
+    xwing.y += 5
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -74,8 +74,9 @@ xwing.setStayInScreen(true)
 forever(function () {
     for (let index = 0; index <= 3; index++) {
         grnd = sprites.create(ground[index], SpriteKind.scenery)
-        grnd.setVelocity(-1 * speed, 0)
+        grnd.setVelocity(-2 * speed, 0)
         grnd.setPosition(145, 102)
+        grnd.setFlag(SpriteFlag.DestroyOnWall, true)
         pause(1000)
     }
 })
@@ -86,10 +87,12 @@ forever(function () {
         TFighter.setFlag(SpriteFlag.AutoDestroy, true)
         TFighter.setPosition(160, randint(20, 100))
         TFighter.setVelocity(randint(-60, -20), 0)
+        TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
         if (4 < randint(0, 10)) {
+            pause(500)
             tbolt = sprites.create(assets.image`tie-laser`, SpriteKind.Projectile)
             tbolt.setPosition(TFighter.x, TFighter.y)
-            tbolt.setFlag(SpriteFlag.AutoDestroy, true)
+            tbolt.setFlag(SpriteFlag.DestroyOnWall, true)
             tbolt.setVelocity(-200, 0)
         }
     }
