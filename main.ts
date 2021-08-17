@@ -14,15 +14,15 @@ sprites.onOverlap(SpriteKind.RebLaser, SpriteKind.Enemy, function (sprite, other
     otherSprite.destroy()
     info.changeScoreBy(5)
 })
-controller.up.onEvent(ControllerButtonEvent.Repeated, function () {
-    xwing.y += -5
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     music.pewPew.play()
     lbolt = sprites.create(assets.image`laser`, SpriteKind.RebLaser)
     lbolt.setPosition(xwing.x, xwing.y)
     lbolt.setVelocity(150, 0)
     lbolt.setFlag(SpriteFlag.DestroyOnWall, true)
+})
+controller.down.onEvent(ControllerButtonEvent.Released, function () {
+    xwing.y += 5
 })
 controller.right.onEvent(ControllerButtonEvent.Repeated, function () {
     speed += 5
@@ -36,8 +36,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     music.knock.play()
     scene.cameraShake(4, 500)
 })
-controller.down.onEvent(ControllerButtonEvent.Repeated, function () {
-    xwing.y += 5
+controller.up.onEvent(ControllerButtonEvent.Released, function () {
+    xwing.y += -5
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
