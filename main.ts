@@ -54,30 +54,29 @@ controller.left.onEvent(ControllerButtonEvent.Repeated, function () {
 })
 let tbolt: Sprite = null
 let TFighter: Sprite = null
-let grnd: Sprite = null
 let lbolt: Sprite = null
 let xwing: Sprite = null
 let speed = 0
 info.setLife(5)
-let ground = [
-assets.image`grnd1`,
-assets.image`grnd2`,
-assets.image`grnd3`,
-assets.image`grnd4`
+let nground = [
+assets.image`sky`,
+assets.image`sky0`,
+assets.image`sky1`,
+assets.image`sky2`
 ]
+for (let index = 0; index <= 3; index++) {
+    scene.setBackgroundImage(nground[index])
+    pause(1000)
+}
 speed = 10
-scene.setBackgroundImage(assets.image`sky`)
 game.splash("Defend the Republic! Tie Fighters approaching!!")
 xwing = sprites.create(assets.image`x-wing`, SpriteKind.Player)
 xwing.setPosition(24, 65)
 xwing.setStayInScreen(true)
 forever(function () {
     for (let index = 0; index <= 3; index++) {
-        grnd = sprites.create(ground[index], SpriteKind.scenery)
-        grnd.setVelocity(-2 * speed, 0)
-        grnd.setPosition(145, 102)
-        grnd.setFlag(SpriteFlag.DestroyOnWall, true)
-        pause(1000)
+        scene.setBackgroundImage(nground[index])
+        pause(250 * (40 / speed))
     }
 })
 forever(function () {
