@@ -80,19 +80,21 @@ forever(function () {
     }
 })
 forever(function () {
-    pause(100 * randint(5, 10))
-    if (7 < randint(0, 10)) {
-        TFighter = sprites.create(assets.image`Tie`, SpriteKind.Enemy)
-        TFighter.setFlag(SpriteFlag.AutoDestroy, true)
-        TFighter.setPosition(160, randint(20, 100))
-        TFighter.setVelocity(randint(-60, -20), 0)
-        TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
-        if (4 < randint(0, 10)) {
-            pause(500)
-            tbolt = sprites.create(assets.image`tie-laser`, SpriteKind.Projectile)
-            tbolt.setPosition(TFighter.x, TFighter.y)
-            tbolt.setFlag(SpriteFlag.DestroyOnWall, true)
-            tbolt.setVelocity(-200, 0)
+    pause(432 * randint(5, 10))
+    for (let index = 0; index < 4; index++) {
+        if (7 < randint(0, 10)) {
+            TFighter = sprites.create(assets.image`Tie`, SpriteKind.Enemy)
+            TFighter.setFlag(SpriteFlag.AutoDestroy, true)
+            TFighter.setPosition(160, randint(20, 100))
+            TFighter.setVelocity(randint(-60, -20), 0)
+            TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
+            if (4 < randint(0, 10)) {
+                pause(500)
+                tbolt = sprites.create(assets.image`tie-laser`, SpriteKind.Projectile)
+                tbolt.setPosition(TFighter.x, TFighter.y)
+                tbolt.setFlag(SpriteFlag.DestroyOnWall, true)
+                tbolt.setVelocity(-200, 0)
+            }
         }
     }
 })
