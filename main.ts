@@ -81,8 +81,8 @@ forever(function () {
 })
 forever(function () {
     pause(432 * randint(5, 10))
-    for (let index = 0; index < 4; index++) {
-        if (7 < randint(0, 10)) {
+    for (let index = 0; index < 3; index++) {
+        if (8 < randint(0, 10)) {
             TFighter = sprites.create(assets.image`Tie`, SpriteKind.Enemy)
             TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
             TFighter.setPosition(160, randint(20, 100))
