@@ -2,6 +2,9 @@ namespace SpriteKind {
     export const scenery = SpriteKind.create()
     export const RebLaser = SpriteKind.create()
 }
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    xwing.y += -5
+})
 sprites.onOverlap(SpriteKind.RebLaser, SpriteKind.Enemy, function (sprite, otherSprite) {
     animation.runImageAnimation(
     otherSprite,
@@ -21,9 +24,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     lbolt.setVelocity(150, 0)
     lbolt.setFlag(SpriteFlag.DestroyOnWall, true)
 })
-controller.down.onEvent(ControllerButtonEvent.Released, function () {
-    xwing.y += 5
-})
 controller.right.onEvent(ControllerButtonEvent.Repeated, function () {
     speed += 5
     if (speed > 40) {
@@ -36,8 +36,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     music.knock.play()
     scene.cameraShake(4, 500)
 })
-controller.up.onEvent(ControllerButtonEvent.Released, function () {
-    xwing.y += -5
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    xwing.y += 5
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -84,10 +84,9 @@ forever(function () {
     for (let index = 0; index < 4; index++) {
         if (7 < randint(0, 10)) {
             TFighter = sprites.create(assets.image`Tie`, SpriteKind.Enemy)
-            TFighter.setFlag(SpriteFlag.AutoDestroy, true)
+            TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
             TFighter.setPosition(160, randint(20, 100))
             TFighter.setVelocity(randint(-60, -20), 0)
-            TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
             if (4 < randint(0, 10)) {
                 pause(500)
                 tbolt = sprites.create(assets.image`tie-laser`, SpriteKind.Projectile)
