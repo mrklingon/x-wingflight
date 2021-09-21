@@ -2,9 +2,6 @@ namespace SpriteKind {
     export const scenery = SpriteKind.create()
     export const RebLaser = SpriteKind.create()
 }
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    xwing.y += -5
-})
 sprites.onOverlap(SpriteKind.RebLaser, SpriteKind.Enemy, function (sprite, otherSprite) {
     animation.runImageAnimation(
     otherSprite,
@@ -22,9 +19,12 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     lbolt = sprites.create(assets.image`laser`, SpriteKind.RebLaser)
     lbolt.setPosition(xwing.x, xwing.y)
     lbolt.setVelocity(150, 0)
-    lbolt.setFlag(SpriteFlag.DestroyOnWall, true)
+    lbolt.setFlag(SpriteFlag.AutoDestroy, true)
 })
-controller.right.onEvent(ControllerButtonEvent.Repeated, function () {
+controller.down.onEvent(ControllerButtonEvent.Released, function () {
+    xwing.y += 5
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     speed += 5
     if (speed > 40) {
         speed = 40
@@ -36,8 +36,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     music.knock.play()
     scene.cameraShake(4, 500)
 })
-controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    xwing.y += 5
+controller.up.onEvent(ControllerButtonEvent.Released, function () {
+    xwing.y += -5
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -80,20 +80,19 @@ forever(function () {
     }
 })
 forever(function () {
-    pause(432 * randint(5, 10))
-    for (let index = 0; index < 3; index++) {
-        if (8 < randint(0, 10)) {
-            TFighter = sprites.create(assets.image`Tie`, SpriteKind.Enemy)
-            TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
-            TFighter.setPosition(160, randint(20, 100))
-            TFighter.setVelocity(randint(-60, -20), 0)
-            if (4 < randint(0, 10)) {
-                pause(500)
-                tbolt = sprites.create(assets.image`tie-laser`, SpriteKind.Projectile)
-                tbolt.setPosition(TFighter.x, TFighter.y)
-                tbolt.setFlag(SpriteFlag.DestroyOnWall, true)
-                tbolt.setVelocity(-200, 0)
-            }
+    pause(100 * randint(5, 10))
+    if (7 < randint(0, 10)) {
+        TFighter = sprites.create(assets.image`Tie`, SpriteKind.Enemy)
+        TFighter.setFlag(SpriteFlag.AutoDestroy, true)
+        TFighter.setPosition(160, randint(20, 100))
+        TFighter.setVelocity(randint(-60, -20), 0)
+        TFighter.setFlag(SpriteFlag.DestroyOnWall, true)
+        if (4 < randint(0, 10)) {
+            pause(500)
+            tbolt = sprites.create(assets.image`tie-laser`, SpriteKind.Projectile)
+            tbolt.setPosition(TFighter.x, TFighter.y)
+            tbolt.setFlag(SpriteFlag.AutoDestroy, true)
+            tbolt.setVelocity(-200, 0)
         }
     }
 })
